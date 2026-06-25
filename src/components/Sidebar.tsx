@@ -5,9 +5,17 @@ type Props = {
   handleAddNote: (e: React.MouseEvent<HTMLButtonElement>) => void
   handleDeleteNote: (id: string) => void
   notes: Note[]
+  activeNote: string
+  setActiveNote: (id: string) => void
 }
 
-const Sidebar = ({ handleAddNote, handleDeleteNote, notes }: Props) => {
+const Sidebar = ({
+  handleAddNote,
+  handleDeleteNote,
+  notes,
+  activeNote,
+  setActiveNote,
+}: Props) => {
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
@@ -16,7 +24,11 @@ const Sidebar = ({ handleAddNote, handleDeleteNote, notes }: Props) => {
       </div>
       <div className="app-sidebar-notes">
         {notes.map((note) => (
-          <div className="app-sidebar-note" key={note.id}>
+          <div
+            className={`app-sidebar-note ${note.id === activeNote && 'active'}`}
+            key={note.id}
+            onClick={() => setActiveNote(note.id)}
+          >
             <div className="sidebar-note-title">
               <strong>{note.title}</strong>
               <button onClick={() => handleDeleteNote(note.id)}>削除</button>
