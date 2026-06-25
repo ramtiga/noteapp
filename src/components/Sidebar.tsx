@@ -1,11 +1,15 @@
 import './Sidebar.css'
 
-const Sidebar = () => {
+type Props = {
+  handleAddNote: (e: React.MouseEvent<HTMLButtonElement>) => void
+}
+
+const Sidebar = ({ handleAddNote }: Props) => {
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
         <h1>ノート</h1>
-        <button>追加</button>
+        <button onClick={handleAddNote}>追加</button>
       </div>
       <div className="app-sidebar-notes">
         <div className="app-sidebar-note">
