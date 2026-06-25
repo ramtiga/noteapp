@@ -3,10 +3,11 @@ import './Sidebar.css'
 
 type Props = {
   handleAddNote: (e: React.MouseEvent<HTMLButtonElement>) => void
+  handleDeleteNote: (id: string) => void
   notes: Note[]
 }
 
-const Sidebar = ({ handleAddNote, notes }: Props) => {
+const Sidebar = ({ handleAddNote, handleDeleteNote, notes }: Props) => {
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
@@ -18,7 +19,7 @@ const Sidebar = ({ handleAddNote, notes }: Props) => {
           <div className="app-sidebar-note" key={note.id}>
             <div className="sidebar-note-title">
               <strong>{note.title}</strong>
-              <button>削除</button>
+              <button onClick={() => handleDeleteNote(note.id)}>削除</button>
             </div>
             <p>{note.content}</p>
             <small>

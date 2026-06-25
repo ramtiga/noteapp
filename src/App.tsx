@@ -20,9 +20,19 @@ function App() {
     setNotes([...notes, newNote])
     console.log(notes)
   }
+
+  const handleDeleteNote = (id: string) => {
+    const filterNotes = notes.filter((note) => note.id !== id)
+    setNotes(filterNotes)
+  }
+
   return (
     <div className="App">
-      <Sidebar handleAddNote={handleAddNote} notes={notes} />
+      <Sidebar
+        handleAddNote={handleAddNote}
+        handleDeleteNote={handleDeleteNote}
+        notes={notes}
+      />
       <Main />
     </div>
   )
