@@ -1,10 +1,12 @@
+import type { Note } from '../types'
 import './Sidebar.css'
 
 type Props = {
   handleAddNote: (e: React.MouseEvent<HTMLButtonElement>) => void
+  notes: Note[]
 }
 
-const Sidebar = ({ handleAddNote }: Props) => {
+const Sidebar = ({ handleAddNote, notes }: Props) => {
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
@@ -12,14 +14,22 @@ const Sidebar = ({ handleAddNote }: Props) => {
         <button onClick={handleAddNote}>追加</button>
       </div>
       <div className="app-sidebar-notes">
-        <div className="app-sidebar-note">
-          <div className="sidebar-note-title">
-            <strong>タイトル</strong>
-            <button>削除</button>
+        {notes.map((note) => (
+          <div className="app-sidebar-note" key={note.id}>
+            <div className="sidebar-note-title">
+              <strong>{note.title}</strong>
+              <button>削除</button>
+            </div>
+            <p>{note.content}</p>
+            <small>
+              最終更新日:{' '}
+              {new Date(note.updatedAt).toLocaleDateString('ja-JP', {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
+            </small>
           </div>
-          <p>ノートの内容です。</p>
-          <small>最終更新日: 2026/06/25</small>
-        </div>
+        ))}
       </div>
     </div>
   )
