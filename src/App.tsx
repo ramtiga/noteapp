@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Main from './components/Main'
 import Sidebar from './components/Sidebar'
@@ -6,12 +6,17 @@ import type { Note } from './types'
 import uuid from 'react-uuid'
 
 function App() {
-  const [notes, setNotes] = useState<Note[]>([])
-  const [activeNote, setActiveNote] = useState('')
+  const [notes, setNotes] = useState<Note[]>(
+    JSON.parse(localStorage.getItem('notes') || '[]') || [],
+  )
+  const initialNoteId = notes.length > 0 ? notes[0].id : ''
+  const [activeNote, setActiveNote] = useState(initialNoteId)
+
+  useEffect(() => {
+    localStorage.setItem('notes', JSON.stringify(notes))
+  }, [notes])
 
   const handleAddNote = () => {
-    console.log('noteを追加しました！！！')
-
     const newNote = {
       id: uuid(),
       title: 'New Note',
@@ -19,7 +24,6 @@ function App() {
       updatedAt: Date.now(),
     }
     setNotes([...notes, newNote])
-    console.log(notes)
   }
 
   const handleDeleteNote = (id: string) => {
