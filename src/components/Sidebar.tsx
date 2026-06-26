@@ -39,6 +39,7 @@ const Sidebar = ({
               {new Date(note.updatedAt).toLocaleDateString('ja-JP', {
                 hour: '2-digit',
                 minute: '2-digit',
+                second: '2-digit',
               })}
             </small>
           </div>
