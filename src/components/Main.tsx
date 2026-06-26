@@ -1,5 +1,6 @@
 import type { Note } from '../types'
 import './Main.css'
+import Markdown from 'react-markdown'
 
 type Props = {
   activeNote: Note | undefined
@@ -36,7 +37,9 @@ const Main = ({ activeNote, onUpdateNote }: Props) => {
       </div>
       <div className="app-main-note-preview">
         <h1 className="preview-title">{activeNote.title}</h1>
-        <div className="markdown-preview">{activeNote.content}</div>
+        <div className="markdown-preview">
+          <Markdown>{activeNote.content}</Markdown>
+        </div>
       </div>
     </div>
   )
